@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net20;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net48</TargetFrameworks>
     <AssemblyName>Gppg</AssemblyName>
     <RootNamespace>QUT.Gppg</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
