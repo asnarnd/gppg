@@ -9,8 +9,27 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
+  <!-- NuGet -->
+  <PropertyGroup>
+    <PackageId>ASNA.Tools.Gppg</PackageId>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Version>0.0.1</Version>
+    <Company>QUT</Company>
+    <Copyright>Copyright © Wayne Kelly, John Gough 2005-2014</Copyright>
+    <Description>
+      Gardens Point Parser Generator version 1.5.2 (2014-08-23), Modified by ASNA
+      https://github.com/asnarnd/gppg
+    </Description>
+    <IsTool>true</IsTool>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <DevelopmentDependency>true</DevelopmentDependency>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="MSBuild\**" />
     <None Remove="ParserGenerator\SpecFiles\**" />
+    <None Include="MSBuild\_._" Pack="true" PackagePath="lib\$(TargetFramework)\" />
+    <None Update="LICENSE.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
