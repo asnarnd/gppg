@@ -53,8 +53,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gplex.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
-    <PackageReference Include="Gppg.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
+    <PackageReference Include="ASNA.Gplex.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
+    <PackageReference Include="ASNA.Gppg.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
