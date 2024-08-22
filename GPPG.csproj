@@ -2,15 +2,88 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <GpLexYaccTargetFramework Condition=" '$(GpLexYaccTargetFramework)' == '' ">net48</GpLexYaccTargetFramework>
-    <TargetFramework>$(GpLexYaccTargetFramework)</TargetFramework>
+    <TargetFrameworks>net472;net6.0</TargetFrameworks>
     <AssemblyName>Gppg</AssemblyName>
+    <AssemblyTitle>Gppg</AssemblyTitle>
+    <Company>QUT</Company>
+    <Configuration></Configuration>
+    <Copyright>Copyright © Wayne Kelly, John Gough 2005-2014</Copyright>
+    <Description>Gardens Point Parser Generator version 1.5.2 (2014-08-23)</Description>
+    <FileVersion>1.5.2</FileVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Product>Gppg</Product>
     <RootNamespace>QUT.Gppg</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <!-- Pack settings -->
+  <PropertyGroup>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <NuspecFile>MSBuild/Gppg.nuspec</NuspecFile>
+    <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
+    <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
+    <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
   </PropertyGroup>
 
+  <!-- Executes /t:Publish for all target frameworks before packing -->
+  <Target Name="NugetCrossTarget" AfterTargets="Build" Condition="'$(TargetFrameworks)' != ''">
+    <ItemGroup>
+      <_TargetFramework Include="$(TargetFrameworks)" />
+    </ItemGroup>
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" Properties="TargetFramework=%(_TargetFramework.Identity)" />
+  </Target>
+
+  <Target Name="NugetSingleTarget" AfterTargets="Build" Condition="'$(TargetFrameworks)' == ''">
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" />
+  </Target>
+
   <ItemGroup>
-    <None Remove="MSBuild\**" />
-    <None Remove="ParserGenerator\SpecFiles\**" />
+    <GplexFile Include="ParserGenerator\SpecFiles\ScanAction.lex">
+      <OutputFile>ScanAction.cs</OutputFile>
+    </GplexFile>
+    <GplexFile Include="ParserGenerator\SpecFiles\gppg.lex">
+      <OutputFile>Scanner.cs</OutputFile>
+    </GplexFile>
+    <GppgFile Include="ParserGenerator\SpecFiles\gppg.y">
+      <OutputFile>Parser.cs</OutputFile>
+      <Arguments>/gplex /nolines</Arguments>
+    </GppgFile>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gplex.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
+    <PackageReference Include="Gppg.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Added explicitly for 'rebuild' target that somehow excludes them when
+      they don't already exist (they are generated, and supposedly re-added, by
+      GplexTool). -->
+    <Compile Remove="GplexBuffers.cs" />
+    <Compile Remove="Parser.cs" />
+    <Compile Remove="ScanAction.cs" />
+    <Compile Remove="Scanner.cs" />
+    <Compile Include="GplexBuffers.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="ScanAction.cs" />
+    <Compile Include="Scanner.cs" />
+  </ItemGroup>
+
+  <!-- Legacy assembly attributes. -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyTrademarkAttribute">
+      <_Parameter1></_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
+      <_Parameter1></_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.InteropServices.ComVisibleAttribute">
+      <_Parameter1>false</_Parameter1> <!--Requires MSBuild 17.7 -->
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.InteropServices.GuidAttribute">
+      <_Parameter1>6b5106e4-43bb-4a39-93df-9cc12f311d4f</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

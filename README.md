@@ -3,6 +3,8 @@ GPPG is a parser generator that produces parsers written in the C# V2 or higher.
 
 This repository now has the full documentation for the parser-generator.
 
+## This Fork
+The repo is a fork of the original maintained by [@k-john-gough](https://github.com/k-john-gough/gppg). The generator produced here requires a .NET runtime compatible with .NET6 or .NETFramework 4.72. The MSBuild targets contained in the NuGet package produced by the repo support .NET SDK "multi-targeting" projects (minimum .NETStandard 2.0). Targets have been modified, with improvements in incremental compilation and use in modern IDEs. Currently, MSBuild v17.7 or later is required to build projects using these targets.
 
 ## Features
 _GPPG_ generates bottom-up parsers.  The generated parsers recognize languages that are _LALR(1)_, with the traditional **yacc** disambiguations.   There are a number of extensions of the traditional input language that are necessary for correctness of the generated C# output files. 

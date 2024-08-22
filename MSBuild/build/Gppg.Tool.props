@@ -1,0 +1,24 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <GppgToolsPropsDefined>true</GppgToolsPropsDefined>
+    
+    <GpGenLinkDirectory Condition=" '$(GpGenLinkDirectory)' == '' "></GpGenLinkDirectory>
+    
+    <IncrementalCleanDependsOn>
+      $(IncrementalCleanDependsOn);
+      SaveGppgOutputFromIncrementalClean
+    </IncrementalCleanDependsOn>
+
+    <_GppgTool>dotnet "$(MSBuildThisFileDirectory)../../tools/net6.0/Gppg.dll"</_GppgTool>
+  </PropertyGroup>
+
+  <!-- Defaults for GppgFile items -->
+  <ItemDefinitionGroup>
+    <GppgFile>
+      <OutputFile>$(IntermediateOutputPath)%(Filename)%(Extension).cs</OutputFile>
+      <Arguments></Arguments>
+    </GppgFile>
+  </ItemDefinitionGroup>
+
+</Project>

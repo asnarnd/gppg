@@ -1,12 +1,11 @@
-// Gardens Point Parser Generator
+﻿// Gardens Point Parser Generator
 // Copyright (c) Wayne Kelly, John Gough QUT 2006-2014
 // (see accompanying GPPGcopyright.rtf)
 
 using System;
-using System.IO;
-using System.Collections;
-using System.Globalization;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using QUT.GPGen.Lexers;
@@ -40,7 +39,7 @@ namespace QUT.GPGen.Parser
             this.baseName = System.IO.Path.GetFileNameWithoutExtension(filename);
             this.grammar = new Grammar( handler );
             this.grammar.InputFileIdent = fileinfo;
-            this.grammar.InputFilename = filename;
+            this.grammar.InputFilename = EnsurePathIsFullyQualified(filename);
         }
 
         // ===============================================================
@@ -324,12 +323,41 @@ namespace QUT.GPGen.Parser
         {
             return text[0] == '\'' && text[text.Length - 1] == '\'';
         }
+
+        private static string EnsurePathIsFullyQualified(string path)
+        {
+            string dirSeparator = new string(new[] {
+                        Path.DirectorySeparatorChar });
+            if (!Path.IsPathRooted(path))
+            {
+                // Assumes path is relative to current directory.
+                string curDir = Environment.CurrentDirectory;
+                if (!curDir.EndsWith(dirSeparator) &&
+                    !curDir.EndsWith(new string(new[]{
+                        Path.AltDirectorySeparatorChar })))
+                {
+                    curDir += Path.DirectorySeparatorChar;
+                }
+                path = curDir + path;
+            }
+
+            // Use platform-specific separator.            
+            path = path.Replace(Path.AltDirectorySeparatorChar,
+                Path.DirectorySeparatorChar);
+
+            if (Path.DirectorySeparatorChar == '\\')
+            {
+                // Escape '\'
+                path = path.Replace(dirSeparator, dirSeparator + dirSeparator);
+            }
+            return path;
+        }
     }
 
-    // ===================================================================
-    // ===================================================================
+// ===================================================================
+// ===================================================================
 
-    [Serializable]
+[Serializable]
     public class GppgInternalException : Exception {
         public GppgInternalException() { }
         public GppgInternalException(string message) : base(message) { }
@@ -419,6 +447,13 @@ namespace QUT.GPGen.Parser
         public override string ToString()
         {
             return buffer.GetString(startIndex, endIndex);
+        }
+
+        public bool IsValid()
+        {
+            return startLine <= endLine && startColumn <= endColumn &&
+                startIndex <= endIndex && startLine > -1 && startColumn > -1 &&
+                endLine > -1 && endColumn > -1;
         }
     }
 
