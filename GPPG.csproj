@@ -24,6 +24,7 @@
     <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
     <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
     <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
+    <RepositoryUrl>https://github.com/asnarnd/gppg</RepositoryUrl>
   </PropertyGroup>
 
   <!-- Executes /t:Publish for all target frameworks before packing -->
