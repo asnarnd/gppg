@@ -10,7 +10,7 @@
       SaveGppgOutputFromIncrementalClean
     </IncrementalCleanDependsOn>
 
-    <_GppgTool>dotnet "$(MSBuildThisFileDirectory)../../tools/net6.0/Gppg.dll"</_GppgTool>
+    <_GppgTool>dotnet "$(MSBuildThisFileDirectory)../tools/net6.0/Gppg.dll"</_GppgTool>
   </PropertyGroup>
 
   <!-- Defaults for GppgFile items -->
