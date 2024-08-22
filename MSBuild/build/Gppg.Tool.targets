@@ -1,4 +1,6 @@
 <!-- CustomTool.targets -->
 <Project>
-  <Import Project="$(MSBuildThisFileDirectory)/../../tools/RunGppg.targets" />
+  <Import Condition=" '$(GppgToolsPropsDefined)' != 'true' "
+          Project="$(MSBuildThisFileDirectory)ASNA.Gppg.Tools.props" />
+  <Import Project="$(MSBuildThisFileDirectory)../../tools/RunGppg.targets" />
 </Project>

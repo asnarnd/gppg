@@ -1,4 +1,4 @@
-// Gardens Point Parser Generator
+﻿// Gardens Point Parser Generator
 // Copyright (c) Wayne Kelly, QUT 2005-2014
 // (see accompanying GPPGcopyright.rtf)
 
@@ -7,7 +7,6 @@
 using System;
 using System.Text;
 using QUT.GPGen.Parser;
-using System.Globalization;
 
 
 namespace QUT.GPGen
@@ -34,11 +33,14 @@ namespace QUT.GPGen
         internal void GenerateCode( CodeGenerator codeGenerator ) {
             int i = 0;
             int line = codeSpan.startLine;
-            bool doLines = GPCG.Lines;
+            bool doLines = GPCG.Lines && codeSpan.IsValid();
 
             int length = commands.Length;
             if (doLines) {
-                Console.WriteLine( "#line {0} \"{1}\"", line, GPCG.LinesFilename ?? codeGenerator.grammar.InputFilename );
+                Console.WriteLine("#line ({0}, {1}) - ({2}, {3}) \"{4}\"",
+                    codeSpan.startLine, codeSpan.startColumn + 1,
+                    codeSpan.endLine, codeSpan.endColumn + 1,
+                    GPCG.LinesFilename ?? codeGenerator.grammar.InputFilename);
                 for (int j = 0; j < codeSpan.startColumn; j++)
                     Console.Write( " " );
             }

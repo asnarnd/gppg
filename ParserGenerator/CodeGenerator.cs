@@ -1,4 +1,4 @@
-// Gardens Point Parser Generator
+﻿// Gardens Point Parser Generator
 // Copyright (c) Wayne Kelly, QUT 2005-2014
 // (see accompanying GPPGcopyright.rtf)
 
@@ -554,8 +554,12 @@ namespace QUT.GPGen
         private void InsertCodeSpan( LexSpan span ) {
             if (span != null) {
                 string code = span.ToString();
-                if (GPCG.Lines) {
-                    Console.WriteLine( "#line {0} \"{1}\"", span.startLine, GPCG.LinesFilename ?? grammar.InputFilename );
+                if (GPCG.Lines && span.IsValid())
+                {
+                    Console.WriteLine("#line ({0},{1}) - ({2},{3}) \"{4}\"",
+                        span.startLine, span.startColumn + 1,
+                        span.endLine, span.endColumn + 1,
+                        GPCG.LinesFilename ?? grammar.InputFilename);
                     for (int i = 0; i < span.startColumn; i++)
                         Console.Write( " " );
                 }
