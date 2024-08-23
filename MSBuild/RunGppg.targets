@@ -3,8 +3,8 @@
   <ItemGroup>
     <Compile Remove="@(GppgFile->'%(OutputFile)')" />
     <Compile Include="@(GppgFile->'%(OutputFile)')">
-      <Link>$(GpGenLinkDirectory)%(Filename)%(Extension).cs</Link>
-      <DependentUpon>%(Identity)</DependentUpon>
+      <Link>$(GpGenLinkDirectory)%(Filename)%(Extension)</Link>
+      <DependentUpon>%(GppgFile.Identity)</DependentUpon>
       <Visible>true</Visible>
     </Compile>
   </ItemGroup>
@@ -31,8 +31,8 @@
     <ItemGroup>
       <Compile Remove="@(GppgFile->'%(OutputFile)')" />
       <Compile Include="@(GppgFile->'%(OutputFile)')">
-        <Link>$(GpGenLinkDirectory)%(Filename)%(Extension).cs</Link>
-        <DependentUpon>%(Identity)</DependentUpon>
+        <Link>$(GpGenLinkDirectory)%(Filename)%(Extension)</Link>
+        <DependentUpon>%(GppgFile.Identity)</DependentUpon>
         <Visible>true</Visible>
       </Compile>
     </ItemGroup>
