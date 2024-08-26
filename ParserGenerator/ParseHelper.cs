@@ -8,6 +8,8 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.Json;
 using QUT.GPGen.Lexers;
 using QUT.GplexBuffers;
 
@@ -155,8 +157,11 @@ namespace QUT.GPGen.Parser
                 FileStream fStrm = null;
                 try {
                     fStrm = new FileStream( grammar.DatFileName, FileMode.Open );
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    grammar.terminals = (Dictionary<string, Terminal>)formatter.Deserialize( fStrm );
+                    using (StreamReader reader = new StreamReader(fStrm, Encoding.UTF8))
+                    {
+                        JsonSerializerOptions options = new JsonSerializerOptions();
+                        grammar.terminals = JsonSerializer.Deserialize<Dictionary<string, Terminal>>(reader.ReadToEnd(), options);
+                    }
                     Terminal.RemoveMaxDummyTerminalFromDictionary( grammar.terminals );
                 }
                 catch (Exception x) {

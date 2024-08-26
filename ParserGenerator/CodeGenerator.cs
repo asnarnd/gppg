@@ -4,12 +4,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Text;
 using System.Globalization;
 using QUT.GPGen.Parser;
+using System.Text.Json;
 
 
 namespace QUT.GPGen
@@ -89,8 +88,14 @@ namespace QUT.GPGen
                     Terminal.InsertMaxDummyTerminalInDictionary( grammar.terminals );
                    
                     fStrm = new FileStream( grammar.DatFileName, FileMode.Create );
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize( fStrm, grammar.terminals );
+                    using (StreamWriter writer = new StreamWriter(fStrm, Encoding.UTF8))
+                    {
+                        JsonSerializerOptions options = new JsonSerializerOptions()
+                        {
+                            WriteIndented = true,
+                        };
+                        writer.Write(JsonSerializer.Serialize(grammar.terminals, options));
+                    }
                 }
                 catch (IOException x) {
                     Console.Error.WriteLine( "GPPG: Error. Failed to create token serialization file" );

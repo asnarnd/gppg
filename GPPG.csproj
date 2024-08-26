@@ -55,6 +55,7 @@
   <ItemGroup>
     <PackageReference Include="ASNA.Gplex.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
     <PackageReference Include="ASNA.Gppg.Tool" Version="0.0.1-preview1" PrivateAssets="All" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>

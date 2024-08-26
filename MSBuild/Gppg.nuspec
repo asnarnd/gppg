@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>ASNA.Gppg.Tool</id>
-    <version>0.0.1-preview1</version>
+    <version>0.0.1-preview2</version>
     <authors>GPPG developers</authors>
     <description>Gardens Point Parser Generator (GPPG) binary and enhanced MSBuild targets for SDK-style projects.</description>
     <repository type="git" url="https://github.com/asnarnd/gplex" />

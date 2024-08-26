@@ -1,4 +1,4 @@
-// Gardens Point Parser Generator
+﻿// Gardens Point Parser Generator
 // Copyright (c) Wayne Kelly, QUT 2005-2014
 // (see accompanying GPPGcopyright.rtf)
 
@@ -137,7 +137,7 @@ namespace QUT.GPGen
             String oldAlias = terminal.Alias;
             if (oldAlias == null) {
                 format = "Token {0} already declared, without alias {1}";
-                terminal.AddAlias( alias );
+                terminal.Alias = alias;
             }
             else if (oldAlias.Equals( alias )) {
                 format = "Token {0} already declared, with same alias {1}";
