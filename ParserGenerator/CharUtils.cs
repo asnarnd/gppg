@@ -467,7 +467,9 @@ namespace QUT.GPGen
         public StringInterpretException(string message) : base(message) { }
         public StringInterpretException(string message, Exception innerException)
             : base(message, innerException) { }
+#if !NET
         protected StringInterpretException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+#endif
     }
 }

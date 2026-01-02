@@ -142,7 +142,9 @@ namespace QUT.Gppg {
         // This exception cannot escape from the local context
         private class AcceptException : Exception {
             internal AcceptException() { }
+#if !NET
             protected AcceptException( SerializationInfo i, StreamingContext c ) : base( i, c ) { }
+#endif
         }
         [Serializable]
         [SuppressMessage( "Microsoft.Design", "CA1064:ExceptionsShouldBePublic" )]
@@ -150,7 +152,9 @@ namespace QUT.Gppg {
         // This exception cannot escape from the local context
         private class AbortException : Exception {
             internal AbortException() { }
+#if !NET
             protected AbortException( SerializationInfo i, StreamingContext c ) : base( i, c ) { }
+#endif
         }
         [Serializable]
         [SuppressMessage( "Microsoft.Design", "CA1064:ExceptionsShouldBePublic" )]
@@ -158,7 +162,9 @@ namespace QUT.Gppg {
         // This exception cannot escape from the local context
         private class ErrorException : Exception {
             internal ErrorException() { }
+#if !NET
             protected ErrorException( SerializationInfo i, StreamingContext c ) : base( i, c ) { }
+#endif
         }
 
         // The following methods are only called from within
