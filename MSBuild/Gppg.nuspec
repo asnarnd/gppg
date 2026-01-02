@@ -30,9 +30,9 @@
 
     <!-- The tool binaries. Note that the net472 binaries are included purely for distribution, they are not used by the build targets -->
     <file src="$publishdir$\net472\**\*" target="tools/net472/" />
-    <file src="$publishdir$\net6.0\**\*" target="tools/net6.0/" />
+    <file src="$publishdir$\net10.0\**\*" target="tools/net10.0/" />
 
-    <file src="..\GPPGcopyright.rtf" target="tools/net6.0/" />
+    <file src="..\GPPGcopyright.rtf" target="tools/net10.0/" />
     <file src="..\GPPGcopyright.rtf" target="tools/net472/" />
 
     <file src="..\README.md" target="docs/" />
